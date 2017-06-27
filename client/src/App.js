@@ -13,6 +13,10 @@ class App extends Component {
       console.log("time is ", time);
       this.setState({ serverTime: time })
     })
+    socket.on("userCountUpdated", count => {
+      console.log("count is ", count);
+      this.setState({ currentUsersCount: count })
+    })
   }
 
   render() {
@@ -26,6 +30,8 @@ class App extends Component {
           Sockets are working yo! Server time is:
           <br/>
           {this.state.serverTime}
+          <br/>
+          currentUsersCount: {this.state.currentUsersCount}
         </p>
       </div>
     );
