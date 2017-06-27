@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import logo from './logo.svg';
-import {Layer, Stage, Group} from 'react-konva';
+import { Layer, Stage } from 'react-konva';
 import CircleTile from './CircleTile.js';
 import io from 'socket.io-client'
 
@@ -11,14 +11,16 @@ const STAGE_WIDTH = window.innerWidth*0.9
 
 class GameStage extends Component {
   state = {circleTiles: []}
-
+  
+  // useless constructor, but maybe not for long
+  // eslint-disable-next-line
   constructor(...args){
     super(...args);
   }
 
   componentDidMount() {
-    socket.once("circleTilesState", tiles => {
-      this.setState({ circleTiles: tiles.circleTiles })
+    socket.once("circleTilesState", data => {
+      this.setState({ circleTiles: data.circleTiles })
     })
   }
 
