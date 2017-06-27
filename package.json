@@ -4,12 +4,18 @@
   "description": "a cool circles game",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd client && npm run build",
+    "start": "nf start"
   },
   "author": "jhendley25@gmail.com",
   "license": "ISC",
   "dependencies": {
     "express": "4.15.3",
+    "foreman": "2.0.0",
     "socket.io": "2.0.3"
+  },
+  "engines": {
+    "node": "6.3.1"
   }
 }
