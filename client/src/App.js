@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import io from 'socket.io-client'
 
-import MyRect from './MyRect.js';
+import GameStage from './GameStage.js';
 
 const socket = io()
 
@@ -31,18 +31,15 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
+          <br/>
           Sockets are working yo! Server time is:
           <br/>
           {this.state.serverTime}
           <br/>
           currentUsersCount: {this.state.currentUsersCount}
-        </p>
-        <div>
-          <MyRect />
         </div>
+
+        <GameStage />
 
       </div>
     );
