@@ -3,10 +3,17 @@ import logo from './logo.svg';
 import './App.css';
 import io from 'socket.io-client'
 
+import MyRect from './MyRect.js';
+
 const socket = io()
 
 class App extends Component {
   state = {}
+
+  constructor(...args){
+    super(...args);
+
+  }
 
   componentDidMount() {
     socket.on("time", time => {
@@ -33,6 +40,10 @@ class App extends Component {
           <br/>
           currentUsersCount: {this.state.currentUsersCount}
         </p>
+        <div>
+          <MyRect />
+        </div>
+
       </div>
     );
   }
