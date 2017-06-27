@@ -4,6 +4,8 @@ const express = require('express');
 const socketIO = require('socket.io');
 const path = require('path');
 
+let circleTiles = require('./lib/circle-tiles')
+
 const PORT = process.env.PORT || 3000;
 
 const server = express()
@@ -14,10 +16,11 @@ const io = socketIO(server);
 
 io.on('connection', (socket) => {
   console.log('Client connected');
-  io.emit('userCountUpdated',io.sockets.sockets.length)
+  io.emit('circleTilesState',circleTiles)
+  // io.emit('userCountUpdated',io.sockets.sockets.length) // NOTE apparently this is busted now for some reason
   socket.on('disconnect', () => {
     console.log('Client disconnected');
-    io.emit('userCountUpdated',io.sockets.sockets.length)
+    // io.emit('userCountUpdated',io.sockets.sockets.length)
   });
 
 });

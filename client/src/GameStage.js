@@ -1,34 +1,48 @@
 import React, { Component } from 'react';
 import './App.css';
+import logo from './logo.svg';
 import {Layer, Stage, Group} from 'react-konva';
-
 import CircleTile from './CircleTile.js';
+import io from 'socket.io-client'
 
-// should probably drop in some state management instead of doing this here...
-const tileCount = Array.from({length: 15*30}, (v,i) => i)
+const socket = io()
+const STAGE_WIDTH = window.innerWidth*0.9
+
 
 class GameStage extends Component {
-  state = {}
+  state = {circleTiles: []}
 
   constructor(...args){
     super(...args);
   }
 
   componentDidMount() {
-    console.log("GameStage mounted");
+    socket.once("circleTilesState", tiles => {
+      this.setState({ circleTiles: tiles.circleTiles })
+    })
   }
+
   // The stage should contain circles 30w x 15h
   render() {
-    return (
-      <Stage width={700} height={700}>
-        <Layer>
-          <CircleTile />
-          <CircleTile />
-          <CircleTile />
-          <CircleTile />
-        </Layer>
-      </Stage>
-    );
+    console.log("this.state in GameStage render", this.state);
+    if (!!this.state.circleTiles.length) {
+      return (
+        <Stage width={STAGE_WIDTH} height={window.innerHeight}>
+          <Layer>
+            {this.state.circleTiles.map((tile) => {
+              return <CircleTile tile={tile} key={tile.id} stageWidth={STAGE_WIDTH}/>
+            })}
+          </Layer>
+        </Stage>
+      );
+
+    } else {
+      return (
+        <div className="Loading">
+          <img src={logo} className="App-logo" alt="logo" />
+        </div>
+      )
+    }
   }
 }
 

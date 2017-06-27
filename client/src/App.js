@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import io from 'socket.io-client'
 
@@ -16,21 +15,19 @@ class App extends Component {
   }
 
   componentDidMount() {
-    socket.on("time", time => {
-      console.log("time is ", time);
-      this.setState({ serverTime: time })
-    })
-    socket.on("userCountUpdated", count => {
-      console.log("count is ", count);
-      this.setState({ currentUsersCount: count })
-    })
+    // socket.on("time", time => {
+    //   this.setState({ serverTime: time })
+    // })
+    // socket.on("userCountUpdated", count => {
+    //   console.log("count is ", count);
+    //   this.setState({ currentUsersCount: count })
+    // })
   }
 
   render() {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <br/>
           Sockets are working yo! Server time is:
           <br/>
