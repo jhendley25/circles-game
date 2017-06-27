@@ -1,0 +1,11 @@
+{
+  "name": "circles-game",
+  "version": "1.0.0",
+  "description": "a cool circles game",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jhendley25@gmail.com",
+  "license": "ISC"
+}
