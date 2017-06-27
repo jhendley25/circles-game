@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import io from 'socket.io-client'
+
+const socket = io()
 
 class App extends Component {
+  state = {}
+
+  componentDidMount() {
+    socket.on("time", time => {
+      console.log("time is ", time);
+      this.setState({ serverTime: time })
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -11,7 +23,9 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          Sockets are working yo! Server time is:
+          <br/>
+          {this.state.serverTime}
         </p>
       </div>
     );
