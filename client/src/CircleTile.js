@@ -14,6 +14,8 @@ class CircleTile extends Component {
   constructor(...args){
     super(...args);
 
+    this.socket = this.props.socket
+
     this.handleClick = this.handleClick.bind(this)
   }
 
@@ -22,6 +24,7 @@ class CircleTile extends Component {
   }
 
   handleClick() {
+    this.socket.emit('circleUpdated', {id: this.props.tile.id})
     this.setState({
       color: 'blue'
     });

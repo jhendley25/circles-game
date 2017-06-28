@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import logo from './logo.svg';
-import io from 'socket.io-client'
-
-const socket = io()
 
 class GameHeader extends Component {
   state = {}
@@ -11,13 +8,13 @@ class GameHeader extends Component {
   // eslint-disable-next-line
   constructor(...args){
     super(...args);
+    this.socket = this.props.socket
   }
 
   componentDidMount() {
     console.log("Header mounted");
   }
 
-  // The stage should contain circles 30w x 15h
   render() {
     return (
       <div className="App-header">

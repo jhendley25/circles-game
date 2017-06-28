@@ -25,6 +25,10 @@ io.on('connection', (socket) => {
     // io.emit('userCountUpdated',io.sockets.sockets.length)
   });
 
+  socket.on('circleUpdated', (data) => {
+    console.log("circleUpdated, data is ", data);
+  })
+
 });
 
 setInterval(() => io.emit('time', new Date().toTimeString()), 1000);

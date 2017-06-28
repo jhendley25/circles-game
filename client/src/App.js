@@ -30,8 +30,8 @@ class App extends Component {
       //NOTE move the header functionality to a seperate component for much win
       <div className="App">
 
-        <GameHeader />
-        <GameStage />
+        <GameHeader socket={socket} />
+        <GameStage socket={socket} />
 
       </div>
     );

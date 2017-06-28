@@ -3,23 +3,23 @@ import './App.css';
 import logo from './logo.svg';
 import { Layer, Stage } from 'react-konva';
 import CircleTile from './CircleTile.js';
-import io from 'socket.io-client'
 
-const socket = io()
 const STAGE_WIDTH = window.innerWidth*0.9
 
 
 class GameStage extends Component {
   state = {circleTiles: []}
-  
+
   // useless constructor, but maybe not for long
   // eslint-disable-next-line
   constructor(...args){
     super(...args);
+
+    this.socket = this.props.socket
   }
 
   componentDidMount() {
-    socket.once("circleTilesState", data => {
+    this.socket.once("circleTilesState", data => {
       this.setState({ circleTiles: data.circleTiles })
     })
   }
