@@ -4,6 +4,8 @@ const express = require('express');
 const socketIO = require('socket.io');
 const path = require('path');
 
+const find = require('lodash.find');
+
 let circleTiles = require('./lib/circle-tiles')
 
 const PORT = process.env.PORT || 3000;

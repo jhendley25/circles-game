@@ -3,6 +3,7 @@ import './App.css';
 import io from 'socket.io-client'
 
 import GameStage from './GameStage.js';
+import GameHeader from './GameHeader.js';
 
 const socket = io()
 
@@ -26,16 +27,10 @@ class App extends Component {
 
   render() {
     return (
+      //NOTE move the header functionality to a seperate component for much win
       <div className="App">
-        <div className="App-header">
-          <br/>
-          Sockets are working yo! Server time is:
-          <br/>
-          {this.state.serverTime}
-          <br/>
-          currentUsersCount: {this.state.currentUsersCount}
-        </div>
 
+        <GameHeader />
         <GameStage />
 
       </div>
