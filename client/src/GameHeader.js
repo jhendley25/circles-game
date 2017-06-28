@@ -5,7 +5,6 @@ import logo from './logo.svg';
 class GameHeader extends Component {
   state = {}
 
-  // eslint-disable-next-line
   constructor(...args){
     super(...args);
     this.socket = this.props.socket

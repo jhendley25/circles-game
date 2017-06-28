@@ -59,8 +59,5 @@ function findAndUpdateCircle(data) {
   circle.selected = data.selected
   circle.userId = data.userId
 
-  console.log("emit update event with id:", circle.id);
-
   io.emit(`circleUpdated:${circle.id}`, circle)
-
 }

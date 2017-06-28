@@ -4,14 +4,12 @@ import logo from './logo.svg';
 import { Layer, Stage } from 'react-konva';
 import CircleTile from './CircleTile.js';
 
-const STAGE_WIDTH = window.innerWidth*0.9
+const STAGE_WIDTH = window.innerWidth
 
 
 class GameStage extends Component {
   state = {circleTiles: []}
 
-  // useless constructor, but maybe not for long
-  // eslint-disable-next-line
   constructor(...args){
     super(...args);
 

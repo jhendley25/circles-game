@@ -3,6 +3,9 @@ import './App.css';
 import { Circle } from 'react-konva';
 
 const NUMBER_OF_COLUMNS = 30
+const gray = "#dedcde"
+const darkBlue = "#286499"
+const lightBlue = "#61bedd"
 
 function multiplyer(tileId){
   return Math.floor(tileId / NUMBER_OF_COLUMNS)
@@ -25,7 +28,6 @@ class CircleTile extends Component {
     this.socket.on(`circleUpdated:${this.props.tile.id}`, (data) =>{
       console.log("update the circle, data is ", data);
 
-      console.log("new color is ", this.determineUpdateColor(data));
       this.setState({
         selected: data.selected,
         userId: data.userId,
@@ -36,11 +38,11 @@ class CircleTile extends Component {
 
   determineUpdateColor(data){
     if(!data.selected) {
-      return 'gray'
+      return gray
     } else if (data.userId === this.props.uuid) {
-      return 'blue'
+      return darkBlue
     }else {
-      return 'green'
+      return lightBlue
     }
   }
 
@@ -52,7 +54,7 @@ class CircleTile extends Component {
       id: this.props.tile.id,
       userId: this.props.tile.userId,
       selected: this.props.tile.selected,
-      color: this.props.tile.selected ? 'green' : 'gray'
+      color: this.props.tile.selected ? lightBlue : gray
     })
   }
 
@@ -61,7 +63,7 @@ class CircleTile extends Component {
   handleClick() {
     if (this.userCanSelectCircle()) {
       this.setState({
-        color: 'blue',
+        color: darkBlue,
         userId: this.props.uuid,
         selected: true
       })
@@ -101,6 +103,10 @@ class CircleTile extends Component {
     return this.props.stageWidth / NUMBER_OF_COLUMNS
   }
 
+  getStrokeWidth() {
+    return Math.floor(this.getDimensions()*0.2)
+  }
+
   render() {
     return (
       <Circle
@@ -108,6 +114,8 @@ class CircleTile extends Component {
         y={this.getYPos()}
         width={this.getDimensions()}
         height={this.getDimensions()}
+        strokeWidth={this.getStrokeWidth()}
+        stroke="white"
         fill={this.state.color}
         onClick={this.handleClick}
       />

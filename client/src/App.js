@@ -12,7 +12,6 @@ const socket = io()
 class App extends Component {
   state = {}
 
-  // eslint-disable-next-line
   constructor(...args){
     super(...args);
     this.uuid = uuid()
