@@ -21,8 +21,8 @@ const io = socketIO(server);
 io.on('connection', (socket) => {
   var playerId;
 
-  io.emit('circleTilesState',circleTiles)
-  
+  io.emit('circleTilesState',{circleTiles: circleTiles})
+
   userCount += 1
   io.emit('userCountUpdated', {userCount: userCount})
 
@@ -46,14 +46,10 @@ io.on('connection', (socket) => {
 
 });
 
-setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
-
-
 function resetCirclesOnDisconnect(playerId) {
-  // fix this dumb data pattern of circleTiles.circleTiles
   if(!playerId) return;
 
-  let playerCircles = filter(circleTiles.circleTiles, circle => circle.userId == playerId)
+  let playerCircles = filter(circleTiles, circle => circle.userId == playerId)
   console.log("playerCircles are ", playerCircles);
   playerCircles.map(circle => {
     circle.selected = false
@@ -64,7 +60,7 @@ function resetCirclesOnDisconnect(playerId) {
 }
 
 function findAndUpdateCircle(data) {
-  let circle = find(circleTiles.circleTiles, {id: data.id})
+  let circle = find(circleTiles, {id: data.id})
 
   circle.selected = data.selected
   circle.userId = data.userId
