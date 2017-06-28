@@ -5,6 +5,7 @@ const socketIO = require('socket.io');
 const path = require('path');
 
 const find = require('lodash.find');
+const filter = require('lodash.filter');
 
 let circleTiles = require('./lib/circle-tiles')
 
@@ -17,18 +18,49 @@ const server = express()
 const io = socketIO(server);
 
 io.on('connection', (socket) => {
-  console.log('Client connected');
+  var playerId;
   io.emit('circleTilesState',circleTiles)
-  // io.emit('userCountUpdated',io.sockets.sockets.length) // NOTE apparently this is busted now for some reason
-  socket.on('disconnect', () => {
-    console.log('Client disconnected');
-    // io.emit('userCountUpdated',io.sockets.sockets.length)
+
+  socket.on('disconnect', (data) => {
+    console.log('Client disconnected, player was', playerId);
+    resetCirclesOnDisconnect(playerId)
+  });
+
+  socket.on('newPlayer', (data) => {
+    console.log('newPlayer', data);
+    playerId = data.id
   });
 
   socket.on('circleUpdated', (data) => {
     console.log("circleUpdated, data is ", data);
+    findAndUpdateCircle(data)
   })
 
 });
 
 setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
+
+
+function resetCirclesOnDisconnect(playerId) {
+  // fix this dumb data pattern of circleTiles.circleTiles
+  let playerCircles = filter(circleTiles.circleTiles, circle => circle.userId == playerId)
+  console.log("playerCircles are ", playerCircles);
+  playerCircles.map(circle => {
+    circle.selected = false
+    circle.userId = null
+
+    io.emit(`circleUpdated:${circle.id}`, {data: circle})
+  })
+}
+
+function findAndUpdateCircle(data) {
+  console.log("data in findAndUpdateCircle", data);
+  let circle = find(circleTiles.circleTiles, {id: data.id})
+
+  circle.selected = data.selected
+  circle.userId = data.userId
+
+  console.log("circle after update", circle);
+  io.emit(`circleUpdated:${circle.id}`, {data: circle})
+
+}
