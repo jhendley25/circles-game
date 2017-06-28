@@ -49,18 +49,18 @@ function resetCirclesOnDisconnect(playerId) {
     circle.selected = false
     circle.userId = null
 
-    io.emit(`circleUpdated:${circle.id}`, {data: circle})
+    io.emit(`circleUpdated:${circle.id}`, circle)
   })
 }
 
 function findAndUpdateCircle(data) {
-  console.log("data in findAndUpdateCircle", data);
   let circle = find(circleTiles.circleTiles, {id: data.id})
 
   circle.selected = data.selected
   circle.userId = data.userId
 
-  console.log("circle after update", circle);
-  io.emit(`circleUpdated:${circle.id}`, {data: circle})
+  console.log("emit update event with id:", circle.id);
+
+  io.emit(`circleUpdated:${circle.id}`, circle)
 
 }

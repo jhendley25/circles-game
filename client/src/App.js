@@ -6,6 +6,7 @@ import uuid from "uuid";
 import GameStage from './GameStage.js';
 import GameHeader from './GameHeader.js';
 
+
 const socket = io()
 
 class App extends Component {
@@ -21,10 +22,9 @@ class App extends Component {
     // socket.on("time", time => {
     //   this.setState({ serverTime: time })
     // })
-    // socket.on("userCountUpdated", count => {
-    //   console.log("count is ", count);
-    //   this.setState({ currentUsersCount: count })
-    // })
+    socket.on("connect", count => {
+      socket.emit('newPlayer', {id:this.uuid})
+    })
   }
 
   render() {
