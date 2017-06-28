@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import io from 'socket.io-client'
 
+import uuid from "uuid";
 import GameStage from './GameStage.js';
 import GameHeader from './GameHeader.js';
 
@@ -13,6 +14,7 @@ class App extends Component {
   // eslint-disable-next-line
   constructor(...args){
     super(...args);
+    this.uuid = uuid()
   }
 
   componentDidMount() {
@@ -27,11 +29,10 @@ class App extends Component {
 
   render() {
     return (
-      //NOTE move the header functionality to a seperate component for much win
       <div className="App">
 
-        <GameHeader socket={socket} />
-        <GameStage socket={socket} />
+        <GameHeader socket={socket} uuid={this.uuid} />
+        <GameStage socket={socket} uuid={this.uuid} />
 
       </div>
     );

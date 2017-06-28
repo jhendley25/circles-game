@@ -16,6 +16,7 @@ class GameStage extends Component {
     super(...args);
 
     this.socket = this.props.socket
+    this.uuid = this.props.uuid
   }
 
   componentDidMount() {
@@ -32,7 +33,12 @@ class GameStage extends Component {
         <Stage width={STAGE_WIDTH} height={window.innerHeight}>
           <Layer>
             {this.state.circleTiles.map((tile) => {
-              return <CircleTile tile={tile} key={tile.id} stageWidth={STAGE_WIDTH}/>
+              return <CircleTile
+                        tile={tile}
+                        key={tile.id}
+                        uuid={this.uuid}
+                        socket={this.socket}
+                        stageWidth={STAGE_WIDTH}/>
             })}
           </Layer>
         </Stage>

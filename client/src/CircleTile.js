@@ -9,7 +9,7 @@ function multiplyer(tileId){
 }
 
 class CircleTile extends Component {
-  state = {color: 'green'}
+  state = {color: 'gray'}
 
   constructor(...args){
     super(...args);
@@ -17,6 +17,8 @@ class CircleTile extends Component {
     this.socket = this.props.socket
 
     this.handleClick = this.handleClick.bind(this)
+
+    this.selected = this.props.tile.selected
   }
 
   componentDidMount() {
@@ -24,10 +26,24 @@ class CircleTile extends Component {
   }
 
   handleClick() {
-    this.socket.emit('circleUpdated', {id: this.props.tile.id})
-    this.setState({
-      color: 'blue'
-    });
+    if(this.selected) {
+      this.selected = false
+      this.setState({
+        color: 'gray'
+      });
+    } else {
+      this.selected = true
+      this.setState({
+        color: 'blue'
+      });
+    }
+
+    this.socket.emit('circleUpdated', {
+      id: this.props.tile.id,
+      userId: this.props.uuid,
+      selected: this.selected
+    })
+
   }
 
   getXPos() {
