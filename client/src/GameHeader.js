@@ -12,21 +12,29 @@ class GameHeader extends Component {
 
   componentDidMount() {
     console.log("Header mounted");
+    // this.setState({
+    //   selectedCount: this.props.selectedCount
+    // })
   }
 
   render() {
     return (
       <div className="App-header">
-        <br/>
-        Sockets are working yo! Server time is:
-        <br/>
-        {this.state.serverTime}
-        <br/>
-        currentUsersCount: {this.state.currentUsersCount}
+        <img src={logo} className="Header-logo" alt="logo" />
+        <div className="Selection-count">
+          {this.props.selectedCount}/10 selected
+
+        </div>
+
       </div>
 
     )
   }
 }
+
+// <div className="Game-info">
+//
+//   currentUsersCount: {this.state.currentUsersCount}
+// </div>
 
 export default GameHeader;

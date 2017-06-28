@@ -4,7 +4,6 @@ import io from 'socket.io-client'
 
 import uuid from "uuid";
 import GameStage from './GameStage.js';
-import GameHeader from './GameHeader.js';
 
 
 const socket = io()
@@ -30,7 +29,6 @@ class App extends Component {
     return (
       <div className="App">
 
-        <GameHeader socket={socket} uuid={this.uuid} />
         <GameStage socket={socket} uuid={this.uuid} />
 
       </div>

@@ -19,6 +19,7 @@ class CircleTile extends Component {
     this.socket = this.props.socket
 
     this.handleClick = this.handleClick.bind(this)
+    this.updateHandler = this.props.updateHandler
 
   }
 
@@ -41,7 +42,7 @@ class CircleTile extends Component {
       return gray
     } else if (data.userId === this.props.uuid) {
       return darkBlue
-    }else {
+    } else {
       return lightBlue
     }
   }
@@ -62,12 +63,14 @@ class CircleTile extends Component {
 
   handleClick() {
     if (this.userCanSelectCircle()) {
+      this.updateHandler(true)
       this.setState({
         color: darkBlue,
         userId: this.props.uuid,
         selected: true
       })
     } else if (this.userCanDeselectCircle()) {
+      this.updateHandler(false)
       this.setState({
         color: 'gray',
         userId: null,
@@ -81,7 +84,7 @@ class CircleTile extends Component {
   }
 
   userCanSelectCircle() {
-    return !this.state.selected
+    return !this.state.selected && !this.props.isDisabled()
   }
 
   userCanDeselectCircle() {
