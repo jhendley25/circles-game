@@ -33,7 +33,6 @@ class GameStage extends Component {
   }
 
   updateHandler(increase) {
-    console.log("updateHandler called");
     let count = this.state.selectedCount
     if (count + 1 <= 10 && increase){
       console.log("increase hit");

@@ -38,6 +38,10 @@
 }
 .Game-info {
   display: inline-block;
+  vertical-align: top;
+  padding: 7px;
+  float: right;
+  margin-right: 10px;
 }
 
 @keyframes App-logo-spin {

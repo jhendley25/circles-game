@@ -8,6 +8,7 @@ const find = require('lodash.find');
 const filter = require('lodash.filter');
 
 let circleTiles = require('./lib/circle-tiles')
+let userCount = 0
 
 const PORT = process.env.PORT || 3000;
 
@@ -19,9 +20,16 @@ const io = socketIO(server);
 
 io.on('connection', (socket) => {
   var playerId;
+
   io.emit('circleTilesState',circleTiles)
+  
+  userCount += 1
+  io.emit('userCountUpdated', {userCount: userCount})
 
   socket.on('disconnect', (data) => {
+    userCount -= 1
+    io.emit('userCountUpdated', {userCount: userCount})
+
     console.log('Client disconnected, player was', playerId);
     resetCirclesOnDisconnect(playerId)
   });
@@ -43,6 +51,8 @@ setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
 
 function resetCirclesOnDisconnect(playerId) {
   // fix this dumb data pattern of circleTiles.circleTiles
+  if(!playerId) return;
+
   let playerCircles = filter(circleTiles.circleTiles, circle => circle.userId == playerId)
   console.log("playerCircles are ", playerCircles);
   playerCircles.map(circle => {

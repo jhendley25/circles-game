@@ -3,18 +3,21 @@ import './App.css';
 import logo from './logo.svg';
 
 class GameHeader extends Component {
-  state = {}
+  state = {userCount: 1}
 
   constructor(...args){
     super(...args);
     this.socket = this.props.socket
+    this.socket.on('userCountUpdated', (data) => {
+      console.log("userCountUpdated event caught");
+      this.setState(data)
+    })
   }
 
   componentDidMount() {
     console.log("Header mounted");
-    // this.setState({
-    //   selectedCount: this.props.selectedCount
-    // })
+
+
   }
 
   render() {
@@ -26,15 +29,15 @@ class GameHeader extends Component {
 
         </div>
 
+        <div className="Game-info">
+
+          {this.state.userCount} online
+        </div>
       </div>
 
     )
   }
 }
 
-// <div className="Game-info">
-//
-//   currentUsersCount: {this.state.currentUsersCount}
-// </div>
 
 export default GameHeader;
